@@ -117,7 +117,7 @@ drwxr-xr-x   - root supergroup          0 2026-06-02 05:30 /user/root/input
 27  27  /user/root/input/sample.txt
 ```
 
-`hdfs dfs -ls -R /user/root` 결과 `/user/root/input/sample.txt` 파일이 생성된 것을 확인했다. `hdfs dfs -du -h /user/root/input/sample.txt` 결과 파일 크기는 `27`로 표시되었다.
+업로드 전 원본 파일의 내용은 `Hello Hadoop on Kubernetes`로 확인되었다. `hdfs dfs -ls -R /user/root` 결과 `/user/root/input/sample.txt` 파일이 생성된 것을 확인했다. `hdfs dfs -du -h /user/root/input/sample.txt` 결과 파일 크기는 `27`로 표시되었다.
 
 ![HDFS put, ls, du 실행 결과](screenshots/raw/12-hdfs-put-ls-du.png)
 
@@ -138,7 +138,7 @@ HDFS Web UI에서도 `/user/root/input` 경로에 `sample.txt` 파일이 표시�
 | Service 상태 | `hadoop-hdfs-ui` Service에서 `9870/TCP`, `8020/TCP` 제공 |
 | Web UI 접속 | `http://192.168.0.100:9870` 및 `/explorer.html#/` 접속 확인 |
 | HDFS 데이터 저장 | `/user/root/input/sample.txt` 저장 확인 |
-| 저장 파일 내용 | `Hello Hadoop on Kubernetes` |
+| 업로드 원본 파일 내용 | `Hello Hadoop on Kubernetes` |
 | 저장 파일 크기 | `27 B` |
 
 ## 결론
