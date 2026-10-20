@@ -1,3 +1,53 @@
+# Hadoop HDFS on Kubernetes
+
+kind 클러스터에 Hadoop Single Node를 실행하고, HDFS CLI와 Web UI에서 파일 저장을 확인한 빅데이터 실습 기록입니다.
+
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
+![Apache Hadoop](https://img.shields.io/badge/Apache%20Hadoop-66CCFF?style=flat-square&logo=apachehadoop&logoColor=black)
+![kind](https://img.shields.io/badge/kind-555555?style=flat-square)
+
+[구성](#구성) · [실습 순서](#실습-순서) · [실행 명령과 결과](#과제-보고서) · [원본 캡처](screenshots/raw)
+
+<img src="screenshots/raw/16-hdfs-web-ui-sample-file.png" alt="기존 실습 결과: HDFS Web UI에서 sample.txt 저장 확인" width="800">
+
+## 구성
+
+```text
+kind Kubernetes cluster
+└── Deployment: hadoop-single-node
+    ├── namenode
+    └── datanode
+
+Service: hadoop-hdfs-ui
+├── 9870 → HDFS Web UI
+└── 8020 → HDFS RPC
+```
+
+## 실습 순서
+
+1. kind 클러스터의 노드와 시스템 Pod 상태를 확인합니다.
+2. Hadoop Deployment·Service를 적용하고 Pod의 `2/2 Running` 상태를 확인합니다.
+3. Service의 `9870` 포트를 전달해 HDFS Web UI를 엽니다.
+4. namenode 컨테이너에서 샘플 파일을 만들고 `hdfs dfs -put`으로 저장합니다.
+5. `-ls`, `-du`와 Web UI로 같은 파일을 확인합니다.
+
+아래 보고서에 당시의 명령과 결과를 정리했습니다. 적용에 사용한 `hadoop-single-node.yaml` 원문은 현재 저장소에 없으며, 구성은 보고서의 YAML 캡처에 남아 있습니다.
+
+## 결과
+
+| 항목 | 실습 기록 |
+| --- | --- |
+| Pod | namenode·datanode `2/2 Running` |
+| 저장 경로 | `/user/root/input/sample.txt` |
+| 내용 | `Hello Hadoop on Kubernetes` |
+| 파일 크기 | `27 B` |
+| 확인 | HDFS CLI와 Web UI에서 조회 |
+
+## 과제 보고서
+
+<details>
+<summary>기존 과제 보고서 펼치기</summary>
+
 # Kubernetes 기반 Hadoop Single Node HDFS 실습 보고서
 
 ## 과제 개요
@@ -144,3 +194,5 @@ HDFS Web UI에서도 `/user/root/input` 경로에 `sample.txt` 파일이 표시�
 ## 결론
 
 Kubernetes 위에서 Hadoop Single Node HDFS를 Deployment와 Service로 실행했고, port-forwarding을 통해 HDFS Web UI에 접속했다. 또한 Pod 내부 namenode 컨테이너에서 HDFS 명령어를 실행해 `/user/root/input/sample.txt` 파일을 저장했으며, CLI 조회 결과와 HDFS Web UI 화면을 통해 데이터 저장이 정상적으로 이루어진 것을 확인했다.
+
+</details>
